@@ -1,0 +1,31 @@
+name: Build & Validate Nginx
+
+on:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check required files
+        run: |
+          for file in nginx.conf index.html Dockerfile; do
+            if [ ! -f "$file" ]; then
+              echo "MISSING: $file"
+              exit 1
+            fi
+            echo "OK: $file"
+          done
+
+      - name: Test Nginx config
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/nginx.conf:/etc/nginx/conf.d/default.conf:ro \
+            nginx:alpine nginx -t
+
+      - name: Build Docker image
+        run: docker build -t nginx-ci-demo .
