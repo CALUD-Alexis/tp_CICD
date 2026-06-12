@@ -57,5 +57,5 @@ Déclenchement manuel (workflow_dispatch)
                        ▼
                     SUCCESS ✓
 ```
-![1781268492311](image/README/1781268492311.png)
-![1781268486387](image/README/1781268486387.png)
+![1781268819030](image/README/1781268819030.png)
+![1781268822908](image/README/1781268822908.png)
